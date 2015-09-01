@@ -1,9 +1,11 @@
 package com.nsdeallai.ns.ns_deallai;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +13,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    /*
+    * Method : Button Click
+    * Parameter : View
+    * Result Type : Layout
+    * Result : Layout
+    *   main_login_bu -> login layout
+    *   main_mypage_bu -> mypage layout
+    *   main_chat_bu -> chat room layout
+    *
+    * Explain
+    * XML 에서 android:onClick 으로 동작
+    * Parameter 값으로 View 받아 v.getId()를 이용하여 버튼 아이디 찾음
+    * intent 를 사용하여 화면을 출력
+    */
+    public void mainOnClick(View v) {
+        Intent intent;
+
+        switch (v.getId()) {
+            case R.id.main_login_bu:
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_mypage_bu:
+                intent = new Intent(this, MyPageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_chat_bu:
+                intent = new Intent(this, ChatActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
