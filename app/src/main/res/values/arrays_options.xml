@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="products_options_arrays">
+        <item>배추 10개</item>
+        <item>딸기 1박스</item>
+        <item>피망 10개</item>
+        <item>당근 10개</item>
+    </string-array>
+</resources>
