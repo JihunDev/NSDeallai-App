@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by Kermit on 2015-08-30.
  */
-public class MyHistoryActivity extends AppCompatActivity{
+public class User_MyHistoryActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

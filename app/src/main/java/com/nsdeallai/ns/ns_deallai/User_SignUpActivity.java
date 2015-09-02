@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 /**
  * Created by Kermit on 2015-08-30.
  */
-public class SignUpActivity extends AppCompatActivity {
+public class User_SignUpActivity extends AppCompatActivity {
 
     private Socket mSocket;
 

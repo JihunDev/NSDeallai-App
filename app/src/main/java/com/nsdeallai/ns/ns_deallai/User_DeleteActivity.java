@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by Kermit on 2015-08-30.
  */
-public class ChatActivity extends AppCompatActivity{
+public class User_DeleteActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_chat_room);
+        setContentView(R.layout.user_delete);
     }
 }

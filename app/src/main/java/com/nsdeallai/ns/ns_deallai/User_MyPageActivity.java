@@ -8,7 +8,7 @@ import android.view.View;
 /**
  * Created by Kermit on 2015-08-30.
  */
-public class MyPageActivity extends AppCompatActivity{
+public class User_MyPageActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,11 @@ public class MyPageActivity extends AppCompatActivity{
 
         switch (v.getId()) {
             case R.id.mypage_modify_bu:
-                intent = new Intent(this, ModifyActivity.class);
+                intent = new Intent(this, User_ModifyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.mypage_myhistory_bu:
-                intent = new Intent(this, MyHistoryActivity.class);
+                intent = new Intent(this, User_MyHistoryActivity.class);
                 startActivity(intent);
                 break;
         }

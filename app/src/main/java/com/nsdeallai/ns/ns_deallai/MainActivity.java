@@ -34,15 +34,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch (v.getId()) {
             case R.id.main_login_bu:
-                intent = new Intent(this, LoginActivity.class);
+                // 추후 수정 요망
+                intent = new Intent(this, User_LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.main_mypage_bu:
-                intent = new Intent(this, MyPageActivity.class);
+                intent = new Intent(this, User_MyPageActivity.class);
                 startActivity(intent);
                 break;
             case R.id.main_chat_bu:
-                intent = new Intent(this, ChatActivity.class);
+                intent = new Intent(this, User_ChatActivity.class);
                 startActivity(intent);
                 break;
         }
