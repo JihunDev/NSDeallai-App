@@ -1,6 +1,7 @@
 package com.nsdeallai.ns.ns_deallai;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +21,9 @@ import java.net.URISyntaxException;
  * Created by Kermit on 2015-08-30.
  */
 public class User_LoginActivity extends AppCompatActivity {
+    DbUser dbuser;
+    SQLiteDatabase db;
+
     private Socket mSocket;
 
     {
@@ -35,7 +39,10 @@ public class User_LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_login);
 
+        dbuser = new DbUser(this);
+
         mSocket.connect().emit("start", "Login Go!");
+
     }
 
     /*
@@ -84,9 +91,18 @@ public class User_LoginActivity extends AppCompatActivity {
         String idLayout = editTextId.getText().toString();
 
         mSocket.emit("login", idLayout).on("loginCheck", new Emitter.Listener() {
-            String id = "";
-            String pwd = "";
             String pwdLayout = "";
+
+            String id = "";
+            int cartId = 0;
+            String pwd = "";
+            String name = "";
+            String address = "";
+            String email = "";
+            int tel = 0;
+            String img = "";
+            String isSeller = "";
+            String dropout = "";
 
             @Override
             public void call(final Object... args) {
@@ -100,13 +116,22 @@ public class User_LoginActivity extends AppCompatActivity {
 
                         try {
                             id = data.getString("u_id");
+                            cartId = data.getInt("c_id");
                             pwd = data.getString("u_pwd");
+                            name = data.getString("u_name");
+                            address = data.getString("u_address");
+                            email = data.getString("u_email");
+                            tel = data.getInt("u_tel");
+                            img = data.getString("u_img");
+                            isSeller = data.getString("u_isseller");
+                            dropout = data.getString("u_dropout");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
                         if (pwdLayout.equals(pwd)) {
                             finish();
+                            insertDb(data);
                             mSocket.off("loginCheck");
                         }
                         if (!pwdLayout.equals(pwd) || id.equals("fail") && pwd.equals("fail")) {
@@ -117,5 +142,18 @@ public class User_LoginActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    /**
+     * @Method 로그인 후 Sqlite 저장
+     * @param Json
+     *
+     * @discription
+     * DB에서 날라온 json 을 로그인후 sqlite에 저장
+     **/
+    private void insertDb(JSONObject data) {
+        db = dbuser.getWritableDatabase();
+        String sql = "INSERT INTO user (u_id, c_id, u_pwd, u_name, u_address, u_email, u_tel, u_img, u_isseller, u_dropout) " +
+                "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        db.execSQL(sql, new Object[]{data});
     }
 }
