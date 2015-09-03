@@ -2,9 +2,6 @@ package com.nsdeallai.ns.ns_deallai;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -23,7 +20,6 @@ import java.net.URISyntaxException;
  * Created by Kermit on 2015-08-30.
  */
 public class User_LoginActivity extends AppCompatActivity {
-
     private Socket mSocket;
 
     {
@@ -41,13 +37,13 @@ public class User_LoginActivity extends AppCompatActivity {
 
         mSocket.connect().emit("start", "Login Go!");
     }
-    /***/
+
     /*
     * Method : Button Click
     * Parameter : View
     * Result Type : Layout
     * Result : Layout
-    *    login_login_bu -> main layout
+    *    login_login_bu  -> 메소드 이동
     *    login_register_bu -> sinup layout
     *
     * Explain
@@ -78,7 +74,8 @@ public class User_LoginActivity extends AppCompatActivity {
     * Explain
     * Socket.io와 통신부
     * Emitter.Listener() 을 통해 emit 날리고 바로 받아 처리
-    * Thead, Headler, Looper 사용
+    * Thead 사용
+    * 사용후 mSocket.off("loginCheck") 통하여 리스너 삭제 final 중복값 처리
     */
     public void loginCheck(View v) {
         mSocket.emit("Start", "Login Check GO!");
@@ -93,13 +90,14 @@ public class User_LoginActivity extends AppCompatActivity {
 
             @Override
             public void call(final Object... args) {
-                new Thread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         EditText editTextPassWord = (EditText) findViewById(R.id.user_login_password);
                         pwdLayout = editTextPassWord.getText().toString();
 
                         JSONObject data = (JSONObject) args[0];
+
                         try {
                             id = data.getString("u_id");
                             pwd = data.getString("u_pwd");
@@ -107,54 +105,17 @@ public class User_LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        Looper.prepare();
                         if (pwdLayout.equals(pwd)) {
-                            mHandler.sendMessage(Message.obtain(mHandler, 1));
+                            finish();
+                            mSocket.off("loginCheck");
                         }
-                        if (!pwdLayout.equals(pwd)) {
-                            mHandler.sendMessage(Message.obtain(mHandler, 2));
+                        if (!pwdLayout.equals(pwd) || id.equals("fail") && pwd.equals("fail")) {
+                            Toast.makeText(getApplicationContext(), "아이디와 비밀번호를 확인하세요.", Toast.LENGTH_SHORT).show();
+                            mSocket.off("loginCheck");
                         }
-                        if (id.equals("fail")) {
-                            mHandler.sendMessage(Message.obtain(mHandler, 3));
-                        }
-                        if (!pwdLayout.equals(pwd) || id.equals("fail")) {
-                            mHandler.sendMessage(Message.obtain(mHandler, 4));
-                        }
-                        Looper.loop();
                     }
-                }).start();
+                });
             }
         });
     }
-
-    /*
-    * Method : Button Click
-    * Parameter : View
-    * Result Type : Layout
-    * Result : Layout
-    *
-    * Explain
-    * Socket.io와 통신부
-    * Emitter.Listener() 을 통해 emit 날리고 바로 받아 처리
-    * Thead, Headler, Looper 사용
-    */
-    public Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    finish();
-                    break;
-                case 2:
-                    Toast.makeText(getApplicationContext(), "pwd아이디와 비밀번호를 확인하세요.", Toast.LENGTH_SHORT).show();
-                    break;
-                case 3:
-                    Toast.makeText(getApplicationContext(), "id아이디와 비밀번호를 확인하세요.", Toast.LENGTH_SHORT).show();
-                    break;
-                case 4:
-                    Toast.makeText(getApplicationContext(), "idpwd아이디와 비밀번호를 확인하세요.", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
 }
