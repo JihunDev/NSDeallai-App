@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -19,8 +21,8 @@ public class Customer_Cart_Frag extends AppCompatActivity {
     SQLiteDatabase db;
     String sql;
     Cursor cursor;
-
     ListView list;
+    CheckBox allselect;
 
   /*  String[] names = {
             "옥수수",
@@ -50,11 +52,21 @@ public class Customer_Cart_Frag extends AppCompatActivity {
 
     //    CustomList adapter = new CustomList(Customer_Cart_Frag.this);
         list=(ListView)findViewById(R.id.list);
+        allselect=(CheckBox)findViewById(R.id.allSelect);
 
         dbHelper = new DbHelper(this);
       //  list.setAdapter(adapter);
 
         selectDB();
+
+        allselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dbAdapter.setAllChecked(allselect.isChecked());
+                dbAdapter.notifyDataSetChanged();
+            }
+        });
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

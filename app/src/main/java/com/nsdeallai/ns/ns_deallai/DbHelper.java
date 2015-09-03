@@ -38,6 +38,7 @@ public class DbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
     // 최초 DB 만들 때 한번만 호출된다.
     @Override
     public void onCreate(SQLiteDatabase db) {

@@ -4,6 +4,31 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체 선택"
+                android:id="@+id/allSelect"
+                android:layout_weight="1"
+                android:checked="false" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="선택 삭제"
+                android:id="@+id/selectItemsDelete"
+                android:layout_weight="1" />
+        </TableRow>
+    </TableLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +38,7 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="410dp" >
+        android:layout_height="370dp" >
     </ListView>
 
         <TableLayout
