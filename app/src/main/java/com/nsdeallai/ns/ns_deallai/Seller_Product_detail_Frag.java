@@ -30,7 +30,6 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seller_product_detail_layout);
 
-
         //옵션 넣어주기
         spinner = (Spinner)findViewById(R.id.Spinner_product_options);
         //adapter넣어주어야 동작
@@ -43,13 +42,6 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
 
         //sqlite helper 불러옴.
         dbHelper = new DbHelper(this);
-
-
-        try {
-            db = dbHelper.getWritableDatabase();
-        } catch (SQLiteException ex) {
-            db = dbHelper.getReadableDatabase();
-        }
 
         ClickDirectBuy();
        //ClickGotoCart();

@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -14,6 +15,10 @@ import java.util.List;
  * Created by SangSang on 2015-08-21.
  */
 public class DbHelper extends SQLiteOpenHelper {
+
+    private SQLiteDatabase db;
+
+    private Cursor cursor;
 
     private static final String DATABASE_NAME = "customer.db";
 
@@ -36,8 +41,13 @@ public class DbHelper extends SQLiteOpenHelper {
     // 생성자
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        //DB를 사용하기 위해 생성하거나 열어줌. DB를 읽어올 수 있는 권한 부여
+        try {
+            db = this.getWritableDatabase();
+        } catch (SQLiteException ex) {
+            db = this.getReadableDatabase();
+        }
     }
-
 
     // 최초 DB 만들 때 한번만 호출된다.
     @Override
@@ -71,7 +81,6 @@ public class DbHelper extends SQLiteOpenHelper {
     * 안드로이드 내부에 db를 만들고 그 안에 table을 만들어서 보관함.
     */
     public void addCart(Cart cart) {
-        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_P_ID, cart.getP_id());
@@ -84,7 +93,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(KEY_OPTIONS, cart.getOptions());
 
         db.insert(TABLE_CART, null, values);
-        db.close();
+      //  db.close();
     }
 
     // 아이디에 해당하는 contact 가져오기
@@ -100,8 +109,6 @@ public class DbHelper extends SQLiteOpenHelper {
     * 안의 값은 Cart 객체로 넘겨주어야만 동작함
     */
     public Cart getCart(int id) {
-        //DB를 사용하기 위해 생성하거나 열어줌. DB를 읽어올 수 있는 권한 부여
-        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_CART, new String[] { KEY_ID, KEY_P_ID , KEY_M_ID, KEY_NAME, KEY_IMAGE, KEY_PRICE
                         , KEY_QUANTITY, KEY_DELIVERY, KEY_OPTIONS }, KEY_ID + "=?",
@@ -121,7 +128,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /*
     * Method : getAllCart() 함수 호출 시 동작
     * Parameter : 없음
-    * Result Type : List<Cart>
+    * Result Type : Cursor
     * Result : sqlite의 database customer.db의 cart table에서 전체 데이터 가져옴.
     * Explain
     * DBHelper를 가져와서 getAllCart를 함수로 호출하면 동작
@@ -129,35 +136,44 @@ public class DbHelper extends SQLiteOpenHelper {
     * 또한, 읽어올때는 cursor 필요!
     * rawQuery는 평소 많이 보왔던 전체 쿼리로 Data를 다루는 메서드임.
    */
-    public List<Cart> getAllCarts() {
-        List<Cart> contactList = new ArrayList<Cart>();
+    public Cursor getAllCarts() {
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_CART;
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Cart cart = new Cart();
-                cart.set_id(Integer.parseInt(cursor.getString(0)));
-                cart.setP_id(Integer.parseInt(cursor.getString(1)));
-                cart.setM_id(Integer.parseInt(cursor.getString(2)));
-                cart.setName(cursor.getString(3));
-                cart.setImage(cursor.getString(4));
-                cart.setPrice(Integer.parseInt(cursor.getString(5)));
-                cart.setQuantity(Integer.parseInt(cursor.getString(6)));
-                cart.setDelivery(Integer.parseInt(cursor.getString(7)));
-                cart.setOptions(cursor.getString(8));
-
-                // Adding contact to list
-                contactList.add(cart);
-            } while (cursor.moveToNext());
-        }
-        // return contact list
-        return contactList;
+        // return cursor
+        return  db.rawQuery(selectQuery, null);
     }
+
+
+//    public List<Cart> getAllCarts() {
+//        List<Cart> contactList = new ArrayList<Cart>();
+//        // Select All Query
+//        String selectQuery = "SELECT  * FROM " + TABLE_CART;
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//        // looping through all rows and adding to list
+//        if (cursor.moveToFirst()) {
+//            do {
+//                Cart cart = new Cart();
+//                cart.set_id(Integer.parseInt(cursor.getString(0)));
+//                cart.setP_id(Integer.parseInt(cursor.getString(1)));
+//                cart.setM_id(Integer.parseInt(cursor.getString(2)));
+//                cart.setName(cursor.getString(3));
+//                cart.setImage(cursor.getString(4));
+//                cart.setPrice(Integer.parseInt(cursor.getString(5)));
+//                cart.setQuantity(Integer.parseInt(cursor.getString(6)));
+//                cart.setDelivery(Integer.parseInt(cursor.getString(7)));
+//                cart.setOptions(cursor.getString(8));
+//
+//                // Adding contact to list
+//                contactList.add(cart);
+//            } while (cursor.moveToNext());
+//        }
+//        // return contact list
+//        return contactList;
+//    }
 
     // 가져온 contact 숫자 가져오기
      /*
@@ -172,8 +188,8 @@ public class DbHelper extends SQLiteOpenHelper {
     * rawQuery는 평소 많이 보왔던 전체 쿼리로 Data를 다루는 메서드임.
    */
     public int getCartsCount() {
+
         String countQuery = "SELECT  * FROM " + TABLE_CART;
-        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
 
@@ -193,7 +209,6 @@ public class DbHelper extends SQLiteOpenHelper {
     * 쓸 때는 Cart 객체로 넘겨주어야 함.
    */
     public int updateCart(Cart cart) {
-        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_ID, cart.get_id());
@@ -202,7 +217,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // updating row
         return db.update(TABLE_CART, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(cart.get_id()) });
+                new String[]{String.valueOf(cart.get_id())});
     }
 
     // contact 삭제하기
@@ -216,10 +231,16 @@ public class DbHelper extends SQLiteOpenHelper {
     * sqlite안의 것을 읽거나 쓸려면 getReadableDatabase나 getWritableDatabase를 꼭 선언해야함.
    */
     public void deleteCart(Cart cart) {
-        SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CART, KEY_ID + " = ?",
-                new String[] { String.valueOf(cart.get_id()) });
-        db.close();
+                new String[]{String.valueOf(cart.get_id())});
+        //db.close();
+    }
+
+    public void SelectedDeleteCarts(String[] _id){
+        for(int i=0; i<_id.length ; i++) {
+            int id = Integer.parseInt(_id[i]);
+           deleteCart(new Cart(id));
+        }
     }
 
 

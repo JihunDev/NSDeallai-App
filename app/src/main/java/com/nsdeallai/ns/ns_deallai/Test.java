@@ -34,12 +34,12 @@ public class Test extends Activity { //Cart CRUD 확인 CLASS
 
         // 집어넣은 데이타 다시 읽어들이기
         Log.d("Reading: ", "Reading all contacts..");
-        List<Cart> carts = db.getAllCarts();
+       //List<Cart> carts = db.getAllCarts();
 
-        for (Cart cn : carts) {
-            String log = "Id: "+cn.get_id()+" ,Name: " + cn.getName() + " ,Option: " + cn.getOptions();
-            Log.d("Result : ", log);
-        }
+//        for (Cart cn : carts) {
+//            String log = "Id: "+cn.get_id()+" ,Name: " + cn.getName() + " ,Option: " + cn.getOptions();
+//            Log.d("Result : ", log);
+//        }
 
     }
 

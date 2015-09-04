@@ -27,4 +27,11 @@
         android:id="@+id/product_insert_button"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="장바구니"
+        android:id="@+id/see_cart_button"
+        />
+
 </LinearLayout>

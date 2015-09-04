@@ -17,6 +17,10 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(int _id) {
+        this._id = _id;
+    }
+
     public Cart(int _id, int quantity, String options) {
         this._id = _id;
         this.quantity = quantity;

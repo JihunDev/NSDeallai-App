@@ -26,12 +26,13 @@ public class DbAdapter extends CursorAdapter {
 //    private Context context;
 //    private Cursor cursor;
     DbHelper dbhelper;
-    SQLiteDatabase db;
 
 //* ListView는 스크롤할때마다 bindView를 하므로 checked값을 따로 가지고 있어야 한다.
 //* 체크가 되면 배열에 저장을 해두었다가
 // * bindVIew를 할때 배열에 저장된 값을 가지고 와서 setChecked를 해주는 식으로 코딩해야 함.
     private boolean[] checked;
+
+    private CheckBox checkBox;
 
 //    private ArrayList<Boolean> itemChecked = new ArrayList<Boolean>();
 
@@ -59,12 +60,12 @@ public class DbAdapter extends CursorAdapter {
         final TextView price = (TextView)view.findViewById(R.id.price);
         final TextView quantity = (TextView)view.findViewById(R.id.quantity);
         final TextView options = (TextView)view.findViewById(R.id.options);
-        final CheckBox checkBox = (CheckBox)view.findViewById(R.id.cb_checkbox);
+        checkBox = (CheckBox)view.findViewById(R.id.cart_checkbox);
         final int position = cursor.getPosition();
         final Button decrease = (Button)view.findViewById(R.id.decrease);
         final Button increase = (Button)view.findViewById(R.id.increase);
 
-
+        //scroll내려도 check 유지되게 함.
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -95,11 +96,6 @@ public class DbAdapter extends CursorAdapter {
                 }
                 int q_number = quantity_number-1;
 
-                try {
-                    db = dbhelper.getWritableDatabase();
-                } catch (SQLiteException ex) {
-                    db = dbhelper.getReadableDatabase();
-                }
                 dbhelper.updateCart(new Cart(_id, q_number, options.getText().toString()));
                 options.setText(options.getText().toString());
             }
@@ -115,11 +111,6 @@ public class DbAdapter extends CursorAdapter {
                     return;
                 }
                 int q_number = quantity_number+1;
-                try {
-                    db = dbhelper.getWritableDatabase();
-                } catch (SQLiteException ex) {
-                    db = dbhelper.getReadableDatabase();
-                }
 
                 dbhelper.updateCart(new Cart(_id , q_number,options.getText().toString()));
                 options.setText(options.getText().toString());
@@ -136,6 +127,7 @@ public class DbAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.listitem, parent, false);
+
         return v;
     }
 
@@ -145,11 +137,12 @@ public class DbAdapter extends CursorAdapter {
         notifyDataSetChanged();
     }
 
-    //checkbox를 모두 선택하는 메소드
+    //checkbox를 모두 선택&해제하는 메소드
     public void setAllChecked(boolean ischecked){
         int tempsize = checked.length;
         for(int a=0; a<tempsize; a++){
             checked[a] = ischecked;
+            checkBox.setChecked(checked[a]);
         }
     }
 

@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <CheckBox
-        android:id="@+id/cb_checkbox"
+        android:id="@+id/cart_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

@@ -4,12 +4,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by SangSang on 2015-08-20.
@@ -23,27 +28,8 @@ public class Customer_Cart_Frag extends AppCompatActivity {
     Cursor cursor;
     ListView list;
     CheckBox allselect;
-
-  /*  String[] names = {
-            "옥수수",
-            "배추",
-            "토마토",
-            "딸기",
-            "옥수수",
-            "배추",
-            "토마토",
-            "딸기"
-    } ;
-    Integer[] images = {
-            R.drawable.product1,
-            R.drawable.product1,
-            R.drawable.product1,
-            R.drawable.product1,
-            R.drawable.product1,
-            R.drawable.product1,
-            R.drawable.product1,
-            R.drawable.product1
-    };*/
+    Button selectdelete;
+    ArrayList<String> idlist = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,17 +39,38 @@ public class Customer_Cart_Frag extends AppCompatActivity {
     //    CustomList adapter = new CustomList(Customer_Cart_Frag.this);
         list=(ListView)findViewById(R.id.list);
         allselect=(CheckBox)findViewById(R.id.allSelect);
+        selectdelete = (Button)findViewById(R.id.selectItemsDelete);
 
         dbHelper = new DbHelper(this);
+
       //  list.setAdapter(adapter);
 
         selectDB();
+        setAllselect();
 
-        allselect.setOnClickListener(new View.OnClickListener() {
+        selectdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbAdapter.setAllChecked(allselect.isChecked());
-                dbAdapter.notifyDataSetChanged();
+                int listCount = list.getChildCount();
+
+                CheckBox cb;
+                for (int i = 0; i < listCount; i++) {
+                    cb = (CheckBox) (list.getChildAt(i).findViewById(R.id.cart_checkbox));
+                    Log.d("Tag", "cursor position : " + i);
+                    if (cb.isChecked()) {
+                        cursor.moveToPosition(i);
+                        Log.d("Tag", "CHECK! -> cursor position : " + i);
+                        Log.d("Tag", "_id : " + cursor.getString(0));
+                        idlist.add(cursor.getString(0));
+
+                    }
+                }
+                if (idlist.size() > 0) {
+                    String[] _id = new String[idlist.size()];
+                    idlist.toArray(_id);
+                    dbHelper.SelectedDeleteCarts(_id);
+                    refreshList();
+                }
             }
         });
 
@@ -73,37 +80,13 @@ public class Customer_Cart_Frag extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 cursor.moveToPosition(position);
                 String str = cursor.getString(cursor.getColumnIndex("name"));
+
+
                 Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
-
-
-//    public class CustomList extends ArrayAdapter<String> {
-//        private final Activity context;
-//        public CustomList(Activity context ) {
-//            super(context, R.layout.listitem, names);
-//            this.context = context;
-//        }
-//        @Override
-//        public View getView(int position, View view, ViewGroup parent) {
-//            LayoutInflater inflater = context.getLayoutInflater();
-//            View rowView= inflater.inflate(R.layout.listitem, null, true);
-//            ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
-//            TextView title = (TextView) rowView.findViewById(R.id.name);
-//            TextView price = (TextView) rowView.findViewById(R.id.price);
-//          /*  TextView genre = (TextView) rowView.findViewById(R.id.genre);*/
-//            TextView quantity = (TextView) rowView.findViewById(R.id.quantity);
-//
-//            title.setText(names[position]);
-//            imageView.setImageResource(images[position]);
-//            price.setText("3" + ((position * 100) + 200));
-//           /* genre.setText("DRAMA");*/
-//            quantity.setText(50+position+"");
-//            return rowView;
-//        }
-//    }
-
 
 
 //    public void search(View target) {
@@ -128,18 +111,69 @@ public class Customer_Cart_Frag extends AppCompatActivity {
     * Explain
     * DbAdapter에서 listitem.xml에 있는 것을 listview에 붙여주고 select한 것의 row 하나하나를 listview에 넣어줌.
    */
-    private void selectDB(){
-        db = dbHelper.getWritableDatabase();
-        sql = "SELECT * FROM cart;";
+    private void selectDB() {
 
-        cursor = db.rawQuery(sql, null);
-        if(cursor.getCount() > 0){
+        cursor = dbHelper.getAllCarts();
+        if (cursor.getCount() > 0) {
             startManagingCursor(cursor);
             dbAdapter = new DbAdapter(this, cursor);
             list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             list.setAdapter(dbAdapter);
         }
     }
+
+    //모든 체크박스를 선택 또는 해체 하는 함수
+     /*
+    * Method :모두선택 체크박스를 클릭 또는 해제 했을 때 실행
+    * Parameter : view
+    * Result Type : void
+    * Result : 모든 listview에 있는 체크박스를 선택하거나 해제 시킴.
+    * Explain
+    * allselect가 check되어 있는지 여부에 따라 체크 되었으면 true가 함수로 보내져서 모두 선택되고
+    * 체크가 되어있지 않으면 false가 보내져 모두 해제된다.
+   */
+    private void setAllselect(){
+
+        allselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //전체체크 감지하기 위한 함수(DbAdapter에서 가져옴)
+                dbAdapter.setAllChecked(allselect.isChecked());
+                dbAdapter.notifyDataSetChanged();
+            }
+        });
+
+    }
+
+//    private void selectItemDelete(){
+//
+//        int listCount = list.getChildCount();
+//        CheckBox cb;
+//        for(int i=0; i<listCount; i++){
+//            cb = (CheckBox)(list.getChildAt(i).findViewById(R.id.cart_checkbox));
+//            if(cb.isChecked()){
+//                cursor.moveToPosition(i);
+//                int _id = Integer.parseInt(cursor.getString(0));
+//                dbHelper.deleteCart(new Cart(_id));
+//            }
+//        }
+//    }
+
+    /**
+     * Refresh the list.
+     */
+    public void refreshList() {
+        boolean requery = cursor.requery();
+        if (requery) {
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dbAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
 
 
 }

@@ -20,6 +20,19 @@ public class MainActivity extends AppCompatActivity {
         ClickStar();
         ClickProduct();
         ClickInsertProduct();
+        ClickCart();
+    }
+
+    private void ClickCart() {
+        button = (Button)findViewById(R.id.see_cart_button);
+
+        button.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Customer_Cart_Frag.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void ClickInsertProduct() {
