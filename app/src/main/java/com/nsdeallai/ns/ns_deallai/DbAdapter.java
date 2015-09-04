@@ -85,10 +85,11 @@ public class DbAdapter extends CursorAdapter {
         increase.setTag(cursor.getPosition());
         final int _id =Integer.parseInt(cursor.getString(cursor.getColumnIndex("_id")));
 
+        //quantity 감소하는 함수
         decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (quantity_number == 100) {
+                if (quantity_number <=1) {
                     // Show an error message as a toast
                    // Toast.makeText(this, "You cannot have more than 100", Toast.LENGTH_SHORT).show();
                     // Exit this method early because there's nothing left to do
@@ -98,13 +99,15 @@ public class DbAdapter extends CursorAdapter {
 
                 dbhelper.updateCart(new Cart(_id, q_number, options.getText().toString()));
                 options.setText(options.getText().toString());
+                onContentChanged();
             }
         });
 
+        //quantity 증가 함수
         increase.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (quantity_number <= 1) {
+                if (quantity_number == 100) {
                     // Show an error message as a toast
                     //  Toast.makeText(this, "You cannot have smaller than 1", Toast.LENGTH_SHORT).show();
                     // Exit this method early because there's nothing left to do
@@ -114,6 +117,7 @@ public class DbAdapter extends CursorAdapter {
 
                 dbhelper.updateCart(new Cart(_id , q_number,options.getText().toString()));
                 options.setText(options.getText().toString());
+                onContentChanged();
             }
         });
 

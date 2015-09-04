@@ -23,8 +23,6 @@ public class Customer_Cart_Frag extends AppCompatActivity {
 
     DbHelper dbHelper;
     DbAdapter dbAdapter;
-    SQLiteDatabase db;
-    String sql;
     Cursor cursor;
     ListView list;
     CheckBox allselect;
@@ -48,6 +46,8 @@ public class Customer_Cart_Frag extends AppCompatActivity {
         selectDB();
         setAllselect();
 
+
+        //체크박스 선택된것을 삭제하는 버튼...
         selectdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +74,7 @@ public class Customer_Cart_Frag extends AppCompatActivity {
             }
         });
 
-
+        //리스트 하나 클릭시 토스트 발생하게 함.
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -145,22 +145,8 @@ public class Customer_Cart_Frag extends AppCompatActivity {
 
     }
 
-//    private void selectItemDelete(){
-//
-//        int listCount = list.getChildCount();
-//        CheckBox cb;
-//        for(int i=0; i<listCount; i++){
-//            cb = (CheckBox)(list.getChildAt(i).findViewById(R.id.cart_checkbox));
-//            if(cb.isChecked()){
-//                cursor.moveToPosition(i);
-//                int _id = Integer.parseInt(cursor.getString(0));
-//                dbHelper.deleteCart(new Cart(_id));
-//            }
-//        }
-//    }
-
     /**
-     * Refresh the list.
+     * Refresh the list. 데이터 변경 시 바뀐 list들을 다시 뿌려줌.
      */
     public void refreshList() {
         boolean requery = cursor.requery();

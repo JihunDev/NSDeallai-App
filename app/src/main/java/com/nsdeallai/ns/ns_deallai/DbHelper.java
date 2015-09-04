@@ -236,6 +236,15 @@ public class DbHelper extends SQLiteOpenHelper {
         //db.close();
     }
 
+    // 장바구니에서 선택한 것 삭제하기
+     /*
+    * Method : 장바구니에서 선택 삭제 버튼 클릭 시 동작
+    * Parameter : 체크박스에서 선택한 _id를 String 배열로 가져옴.
+    * Result Type : 없음
+    * Result : 선택된 체크박스들이 삭제됨.
+    * Explain
+    * 가져온 배열을 돌려 _id를 하나씩 deleteCart()를 보낸다.
+   */
     public void SelectedDeleteCarts(String[] _id){
         for(int i=0; i<_id.length ; i++) {
             int id = Integer.parseInt(_id[i]);
