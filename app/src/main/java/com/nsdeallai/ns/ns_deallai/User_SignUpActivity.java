@@ -29,6 +29,7 @@ public class User_SignUpActivity extends AppCompatActivity {
         }
     }
 
+    /*스레드를 이용하여 화면 finish로 날려버림*/
     final Thread success = new Thread() {
         public void run() {
             try {
@@ -49,21 +50,14 @@ public class User_SignUpActivity extends AppCompatActivity {
 
     }
 
-    /*
-   * Method : Button Click
-   * Parameter : View
-   * Result Type : JsonObject
-   * Result : {"insert", JsonObject}
-   *            key        value
-   *
-   * Explain
-   * XML 에서 android:onClick 으로 동작
-   * Parameter 값으로 View 받아왔지만 사용하지 않음
-   * Id를 통하여 값 가져오며 String 변환
-   * Socket.io를 통하여 보낼 값을 JsonObject에 담음
-   * .emit를 통하여 isert라는 key값으로 JsonObject전송
-   * 전송후 나오는 Layout을 thread를 사용하여 일정시간 후 삭제
-   */
+    /**
+     * 회원가입 이벤트
+     *
+     * @param v : View 를 받아 안에 있는 id값 사용을 위해
+     * @discription view에있는 R.id값을을 가져와 공백이면 toast 출력후 포커스를 줌
+     * 입력 비밀번호 두개가 맞으면 Json 형태로 담아 sccket.io를 통해 서버로 전달
+     * 후 회원가입 페이지를 띄우고 스레드 동작
+     */
     public void insertOnClick(View v) {
 
         final EditText editTextId = (EditText) findViewById(R.id.singup_id);
@@ -75,12 +69,12 @@ public class User_SignUpActivity extends AppCompatActivity {
         final EditText editTextEmail = (EditText) findViewById(R.id.singup_email);
 
         String id = editTextId.getText().toString();
-        String pwd = editTextId.getText().toString();
-        String pwdCheck = editTextId.getText().toString();
-        String name = editTextId.getText().toString();
-        String address = editTextId.getText().toString();
-        String tel = editTextId.getText().toString();
-        String email = editTextId.getText().toString();
+        String pwd = editTextPwd.getText().toString();
+        String pwdCheck = editTextPwdCheck.getText().toString();
+        String name = editTextName.getText().toString();
+        String address = editTextAddress.getText().toString();
+        String tel = editTextTel.getText().toString();
+        String email = editTextEmail.getText().toString();
 
         if (id.equals("")) {
             Toast.makeText(getApplicationContext(), "ID를 입력하세요.", Toast.LENGTH_SHORT).show();

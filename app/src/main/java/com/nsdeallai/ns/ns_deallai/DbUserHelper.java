@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by Kermit on 2015-09-03.
  */
-public class DbUser extends SQLiteOpenHelper {
+public class DbUserHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "user3.db";
     private static final int DATABASE_VERSION = 2;
 
-    public DbUser(Context context) {
+    public DbUserHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

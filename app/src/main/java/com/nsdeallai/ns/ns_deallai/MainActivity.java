@@ -15,26 +15,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /*
-    * Method : Button Click
-    * Parameter : View
-    * Result Type : Layout
-    * Result : Layout
-    *   main_login_bu -> login layout
-    *   main_mypage_bu -> mypage layout
-    *   main_chat_bu -> chat room layout
-    *
-    * Explain
-    * XML 에서 android:onClick 으로 동작
-    * Parameter 값으로 View 받아 v.getId()를 이용하여 버튼 아이디 찾음
-    * intent 를 사용하여 화면을 출력
-    */
+    /**
+     * 버튼 이벤트
+     *
+     * @param v : View 를 받아 안에 있는 id값 사용을 위해
+     * @discription XML 에서 android:onClick 으로 동작
+     * Parameter 값으로 View 받아 v.getId()를 이용하여 버튼 아이디 찾음
+     * intent 를 사용하여 화면을 출력
+     */
     public void mainOnClick(View v) {
         Intent intent;
 
         switch (v.getId()) {
             case R.id.main_login_bu:
-                // 추후 수정 요망
                 intent = new Intent(this, User_LoginActivity.class);
                 startActivity(intent);
                 break;
@@ -46,7 +39,20 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, User_ChatActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.main_logout_bu:
+                logOut();
+                break;
         }
+    }
+
+    /**
+     * 로그 아웃 버튼 클릭 이벤트
+     *
+     * @discription 로그 아웃 버튼 클릭시 sqlite 디비 테이블을 upgrade를 사용하여 초기화
+     */
+    private void logOut() {
+        DbUserHandler dbUserHandler = DbUserHandler.open(this);
+        dbUserHandler.upgrade();
     }
 
     @Override
