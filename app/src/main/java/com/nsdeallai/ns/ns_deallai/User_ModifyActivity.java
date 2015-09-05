@@ -122,19 +122,24 @@ public class User_ModifyActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("u_id", id);
-            jsonObject.put("u_name", name);
-            jsonObject.put("u_tel", tel);
-            jsonObject.put("u_eMail", eMail);
-            jsonObject.put("u_address", address);
-            jsonObject.put("u_pwd", pwd);
+            jsonObject.put("id", id);
+            jsonObject.put("name", name);
+            jsonObject.put("tel", tel);
+            jsonObject.put("eMail", eMail);
+            jsonObject.put("address", address);
+            jsonObject.put("pwd", pwd);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         if (pwd.equals(pwdCheck) && !(pwd.equals("") && pwdCheck.equals(""))) {
             mSocket.emit("update", jsonObject);
-            dbUserHandler.updateDb(jsonObject);
+            try {
+                /* updateDb 메소드에서 throws 던짐*/
+                dbUserHandler.updateDb(jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             Intent intent = new Intent(this, User_MyPageActivity.class);
             startActivity(intent);
         } else {

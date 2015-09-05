@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * NS_Deallai
  * Created by Kermit on 2015-09-04.
  */
 public class DbUserHandler {
@@ -69,6 +70,7 @@ public class DbUserHandler {
     public void insertDb(JSONObject data) {
         sqLiteDatabase = dbUserHelper.getWritableDatabase();
 
+        /*json 데이터를 바로 sqlite에 넣으면 한컬럼에 다 들어가서 ContentValues에 담아야 한다.*/
         ContentValues values = new ContentValues();
         try {
             values.put("u_id", data.getString("u_id"));
@@ -92,11 +94,23 @@ public class DbUserHandler {
      * Sqlite 유저 정보 업데이트
      *
      * @param data : JSON type 유저 정보
-     * @discription 진행중
+     * @throws JSONException try/catch 사용시 작동을 안함.
+     * @discription json 데이터를 받아 받은 값을 파싱후 sqlite에 update해줌.
      */
-    public void updateDb(JSONObject data) {
+    public void updateDb(JSONObject data) throws JSONException {
         sqLiteDatabase = dbUserHelper.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+
+        values.put("u_name", data.getString("name"));
+        values.put("u_tel", data.getString("tel"));
+        values.put("u_email", data.getString("eMail"));
+        values.put("u_address", data.getString("address"));
+        values.put("u_pwd", data.getString("pwd"));
+
+        String id = data.getString("id");
+
+        sqLiteDatabase.update("user", values, "u_id=?", new String[]{id});
     }
 
     /**
