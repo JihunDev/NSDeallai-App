@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.github.nkzawa.socketio.client.IO;
@@ -75,6 +76,27 @@ public class User_SignUpActivity extends AppCompatActivity {
         String address = editTextAddress.getText().toString();
         String tel = editTextTel.getText().toString();
         String email = editTextEmail.getText().toString();
+        String isSeller = "";
+
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.singup_saller_rg);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                /*값을 method 밖으로 꺼낼 방법을 찾아야함.*/
+                switch (checkedId) {
+                    case R.id.singup_seller_se_rb:
+                        //isSeller = "y";
+                        break;
+                    case R.id.singup_seller_cu_rb:
+                        //isSeller = "n";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         if (id.equals("")) {
             Toast.makeText(getApplicationContext(), "ID를 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -111,6 +133,7 @@ public class User_SignUpActivity extends AppCompatActivity {
             return;
         }
         if (pwd.equals(pwdCheck)) {
+
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("id", id);
@@ -119,6 +142,7 @@ public class User_SignUpActivity extends AppCompatActivity {
                 jsonObject.put("addr", address);
                 jsonObject.put("email", email);
                 jsonObject.put("tel", tel);
+                jsonObject.put("isseller", isSeller);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -130,7 +154,6 @@ public class User_SignUpActivity extends AppCompatActivity {
             success.start();
         } else {
             Toast.makeText(getApplicationContext(), "비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
-            return;
         }
     }
 }

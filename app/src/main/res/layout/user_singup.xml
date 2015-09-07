@@ -114,14 +114,14 @@
             android:layout_height="match_parent">
 
             <RadioGroup
-                android:id="@+id/singup_saller"
+                android:id="@+id/singup_saller_rg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/singup_seller_se_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -129,7 +129,7 @@
                     android:text="판매자" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/singup_seller_cu_rb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"

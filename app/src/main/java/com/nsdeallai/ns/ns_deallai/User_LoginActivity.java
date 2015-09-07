@@ -68,7 +68,7 @@ public class User_LoginActivity extends AppCompatActivity {
      * @discription Socket.io와 통신을 통하여 서버에서 유저정보를 가져옴
      * 가져온 정보를 sqlite에 다시 넣어주는데 메소드에 파라미터를 json 형태로 보냄
      * 로그인 정보가 틀리면 toast 창을 띄움
-     * call 메소드의 odbbject 값이 final이라 값이 계속 남아있는데 .off로 .on을 실행후 종료하여 해결
+     * call 메소드의 odbbject 값이 final이라 값이 계속 남아있는데 .off로 .on을 종료하여 해결
      */
     public void loginCheck(View v) {
         mSocket.emit("Start", "Login Check GO!");
@@ -101,11 +101,14 @@ public class User_LoginActivity extends AppCompatActivity {
 
                         if (pwdLayout.equals(pwd)) {
                             finish();
+                            /*Sqlite insert*/
                             dbUserHandler.insertDb(data);
+                            /*loginCheck 이벤트 종료*/
                             mSocket.off("loginCheck");
                         }
                         if (!pwdLayout.equals(pwd) || id.equals("fail") && pwd.equals("fail")) {
                             Toast.makeText(getApplicationContext(), "아이디와 비밀번호를 확인하세요.", Toast.LENGTH_SHORT).show();
+                            /*loginCheck 이벤트 종료*/
                             mSocket.off("loginCheck");
                         }
                     }
