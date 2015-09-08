@@ -1,228 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView"
-    android:layout_gravity="right">
+    android:orientation="vertical">
 
-<LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <TableLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:layout_gravity="right">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
+
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="카테고리"
-                android:layout_weight="1"
-                android:gravity="center" />
+                android:layout_gravity="center_horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="채소"
-                android:id="@+id/product_category"
-                android:layout_weight="1"
-                android:gravity="center" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="카테고리"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="직거래 농수산물"
-            android:id="@+id/product_name"
-            android:gravity="center" />
+                    <TextView
+                        android:id="@+id/product_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="채소"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/product_image"
-                android:src="@drawable/product1"
-                android:scaleType="fitXY"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                />
+                </TableRow>
 
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="직거래 농수산물"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="가격"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="1000"
-                android:id="@+id/product_price"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="배송비"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="2500"
-                android:id="@+id/product_delivery"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="원산지"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="서울"
-                android:id="@+id/product_original"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="남은 수량"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="100"
-                android:id="@+id/product_issoldout"
-                android:layout_weight="1"
-                android:gravity="center" />
-
-        </TableRow>
+                <ImageView
+                    android:id="@+id/product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/product1" />
 
 
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="옵션"
-                android:layout_weight="1"
-                android:gravity="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="가격"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Spinner_product_options"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/product_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="1000"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </TableRow>
+                </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="수량"
-                android:layout_weight="1"
-                android:gravity="center" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="배송비"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/product_buynumber"
-                android:layout_weight="1"
-                android:gravity="center" />
+                    <TextView
+                        android:id="@+id/product_delivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2500"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </TableRow>
+                </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="즉시구매"
-                android:id="@+id/button3"
-                android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="원산지"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="장바구니"
-                android:id="@+id/button2"
-                android:onClick="insert"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/product_original"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="서울"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </TableRow>
+                </TableRow>
 
-    </TableLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="남은 수량"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/product_issoldout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </TableRow>
 
 
-</LinearLayout>
-</ScrollView>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="옵션"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/Spinner_product_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="수량"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <EditText
+                        android:id="@+id/product_buynumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="즉시구매" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:onClick="insert"
+                        android:text="장바구니" />
+
+                </TableRow>
+
+            </TableLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

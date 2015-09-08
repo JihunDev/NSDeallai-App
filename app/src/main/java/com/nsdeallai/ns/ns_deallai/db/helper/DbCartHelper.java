@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.db.helper;
 
 
 import android.content.ContentValues;
@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.nsdeallai.ns.ns_deallai.entity.Cart;
 
 /**
  * Created by SangSang on 2015-08-21.
+ * sqlite의 테이블을 연결하는 클래스
  */
-public class DbHelper extends SQLiteOpenHelper {
+public class DbCartHelper extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
@@ -39,7 +39,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String KEY_OPTIONS = "options";
 
     // 생성자
-    public DbHelper(Context context) {
+    public DbCartHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //DB를 사용하기 위해 생성하거나 열어줌. DB를 읽어올 수 있는 권한 부여
         try {
@@ -69,14 +69,12 @@ public class DbHelper extends SQLiteOpenHelper {
      *  CART CRUD 함수
      */
 
-    // 새로운 contact 추가
-     /*
+    /**
+    * 새로운 contact 추가
     * Method : addCart() 함수 호출 시 동작
-    * Parameter : Cart (constructor)
-    * Result Type : 없음(void)
+    * @param cart : (constructor)
     * Result : sqlite의 database customer.db의 cart table에 insert 됨
-    * Explain
-    * DBHelper를 가져와서 addCart를 함수로 호출하면 동작
+    * @description : DBHelper를 가져와서 addCart를 함수로 호출하면 동작
     * 안의 값은 Cart 객체로 넘겨주어야만 동작함
     * 안드로이드 내부에 db를 만들고 그 안에 table을 만들어서 보관함.
     */
@@ -96,21 +94,20 @@ public class DbHelper extends SQLiteOpenHelper {
       //  db.close();
     }
 
-    // 아이디에 해당하는 contact 가져오기
-  /*
+  /**
+    * 아이디에 해당하는 contact 가져오기
     * Method : getCart() 함수 호출 시 동작
-    * Parameter : Cart (constructor)
-    * Result Type : id
+    * @param id  : id
+    * @return Cart : (constructor)
     * Result : sqlite의 database customer.db의 cart table에서 특정 row 가져옴.
-    * Explain
-    * DBHelper를 가져와서 getCart를 함수로 호출하면 동작
+    * @description : DBHelper를 가져와서 getCart를 함수로 호출하면 동작
     * sqlite안의 것을 읽어오려면 getReadableDatabase 를 꼭 선언해야함.
     * 또한, 읽어올때는 cursor 필요!
     * 안의 값은 Cart 객체로 넘겨주어야만 동작함
     */
     public Cart getCart(int id) {
 
-        Cursor cursor = db.query(TABLE_CART, new String[] { KEY_ID, KEY_P_ID , KEY_M_ID, KEY_NAME, KEY_IMAGE, KEY_PRICE
+        cursor = db.query(TABLE_CART, new String[] { KEY_ID, KEY_P_ID , KEY_M_ID, KEY_NAME, KEY_IMAGE, KEY_PRICE
                         , KEY_QUANTITY, KEY_DELIVERY, KEY_OPTIONS }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
@@ -124,14 +121,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return cart;
     }
 
-    // 모든 contact 리스트 가져오기
-    /*
+    /**
+    * 모든 contact 리스트 가져오기
     * Method : getAllCart() 함수 호출 시 동작
-    * Parameter : 없음
-    * Result Type : Cursor
+    * @return Cursor
     * Result : sqlite의 database customer.db의 cart table에서 전체 데이터 가져옴.
-    * Explain
-    * DBHelper를 가져와서 getAllCart를 함수로 호출하면 동작
+    * @description : DBHelper를 가져와서 getAllCart를 함수로 호출하면 동작
     * sqlite안의 것을 읽거나 쓸려면 getReadableDatabase나 getWritableDatabase를 꼭 선언해야함.
     * 또한, 읽어올때는 cursor 필요!
     * rawQuery는 평소 많이 보왔던 전체 쿼리로 Data를 다루는 메서드임.
@@ -175,14 +170,12 @@ public class DbHelper extends SQLiteOpenHelper {
 //        return contactList;
 //    }
 
-    // 가져온 contact 숫자 가져오기
-     /*
+    /**
+    * 가져온 contact 숫자 가져오기
     * Method : getCartsCount() 함수 호출 시 동작
-    * Parameter : 없음
-    * Result Type : int
+    * @return int
     * Result : sqlite의 database customer.db의 cart table에서 전체 데이터의 갯수 가져옴.
-    * Explain
-    * DBHelper를 가져와서 getCartsCount를 함수로 호출하면 동작
+    * @description : DBHelper를 가져와서 getCartsCount를 함수로 호출하면 동작
     * sqlite안의 것을 읽거나 쓸려면 getReadableDatabase나 getWritableDatabase를 꼭 선언해야함.
     * 또한, 읽어올때는 cursor 필요!
     * rawQuery는 평소 많이 보왔던 전체 쿼리로 Data를 다루는 메서드임.
@@ -190,21 +183,20 @@ public class DbHelper extends SQLiteOpenHelper {
     public int getCartsCount() {
 
         String countQuery = "SELECT  * FROM " + TABLE_CART;
-        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor = db.rawQuery(countQuery, null);
         cursor.close();
 
         // return count
         return cursor.getCount();
     }
 
-    // contact 업데이트
-     /*
+    /**
+    * contact 업데이트
     * Method : update() 함수 호출 시 동작
-    * Parameter : Cart (constructor)
-    * Result Type : int
+    * @param cart  : (constructor)
+    * @return int
     * Result : sqlite의 database customer.db의 cart table에서 특정 row를 업데이트 함.
-    * Explain
-    * DBHelper를 가져와서 updateCart를 함수로 호출하면 동작
+    * @description : DBHelper를 가져와서 updateCart를 함수로 호출하면 동작
     * sqlite안의 것을 읽거나 쓸려면 getReadableDatabase나 getWritableDatabase를 꼭 선언해야함.
     * 쓸 때는 Cart 객체로 넘겨주어야 함.
    */
@@ -220,14 +212,12 @@ public class DbHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(cart.get_id())});
     }
 
-    // contact 삭제하기
-     /*
+    /**
+    * contact 삭제하기
     * Method : deleteCart() 함수 호출 시 동작
-    * Parameter : Cart (constructor)
-    * Result Type : 없음
+    * @param cart : (constructor)
     * Result : sqlite의 database customer.db의 cart table에서 특정 row 지움.
-    * Explain
-    * DBHelper를 가져와서 deleteCart를 함수로 호출하면 동작
+    * @description : DBHelper를 가져와서 deleteCart를 함수로 호출하면 동작
     * sqlite안의 것을 읽거나 쓸려면 getReadableDatabase나 getWritableDatabase를 꼭 선언해야함.
    */
     public void deleteCart(Cart cart) {
@@ -236,14 +226,12 @@ public class DbHelper extends SQLiteOpenHelper {
         //db.close();
     }
 
-    // 장바구니에서 선택한 것 삭제하기
-     /*
+    /**
+    * 장바구니에서 선택한 것 삭제하기
     * Method : 장바구니에서 선택 삭제 버튼 클릭 시 동작
-    * Parameter : 체크박스에서 선택한 _id를 String 배열로 가져옴.
-    * Result Type : 없음
+    * @param _id  : 체크박스에서 선택한 _id를 String 배열로 가져옴.
     * Result : 선택된 체크박스들이 삭제됨.
-    * Explain
-    * 가져온 배열을 돌려 _id를 하나씩 deleteCart()를 보낸다.
+    * @description : 가져온 배열을 돌려 _id를 하나씩 deleteCart()를 보낸다.
    */
     public void SelectedDeleteCarts(String[] _id){
         for(int i=0; i<_id.length ; i++) {

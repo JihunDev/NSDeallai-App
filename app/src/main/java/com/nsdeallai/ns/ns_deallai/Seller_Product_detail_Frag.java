@@ -2,7 +2,6 @@ package com.nsdeallai.ns.ns_deallai;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,12 +12,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.nsdeallai.ns.ns_deallai.db.helper.DbCartHelper;
+import com.nsdeallai.ns.ns_deallai.entity.Cart;
+
 /**
  * Created by SangSang on 2015-08-21.
  */
 public class Seller_Product_detail_Frag extends AppCompatActivity {
 
-    DbHelper dbHelper;
+    DbCartHelper dbCartHelper;
     SQLiteDatabase db;
     Spinner spinner;
 
@@ -31,7 +33,7 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
         setContentView(R.layout.seller_product_detail_layout);
 
         //옵션 넣어주기
-        spinner = (Spinner)findViewById(R.id.Spinner_product_options);
+        spinner = (Spinner) findViewById(R.id.Spinner_product_options);
         //adapter넣어주어야 동작
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(
                 this, R.array.products_options_arrays, android.R.layout.simple_spinner_item);
@@ -41,10 +43,10 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
 
 
         //sqlite helper 불러옴.
-        dbHelper = new DbHelper(this);
+        dbCartHelper = new DbCartHelper(this);
 
         ClickDirectBuy();
-       //ClickGotoCart();
+        //ClickGotoCart();
 
     }
 
@@ -55,7 +57,7 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
         DirectBuy.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Customer_Buy_Frag.class);
+                Intent intent = new Intent(getApplicationContext(), Customer_Buy_Frag.class);
                 startActivity(intent);
             }
         });
@@ -72,8 +74,8 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               Intent intent = new Intent(getApplicationContext(),Customer_Cart_Frag.class);
-              startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), Customer_Cart_Frag.class);
+                startActivity(intent);
 
 
             }
@@ -82,7 +84,7 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
     }
 
 
-        public void insert(View target) {
+    public void insert(View target) {
 
         //제품 아이디
         int p_id = 1;
@@ -104,7 +106,7 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
 
         //상품 수량
         EditText product_quantity = (EditText) findViewById(R.id.product_buynumber);
-        if(product_quantity.getText().toString().equals("")) { //상품 수량 안 적을 경우 1로 넘어감
+        if (product_quantity.getText().toString().equals("")) { //상품 수량 안 적을 경우 1로 넘어감
             product_quantity.setText("1");
         }
         int quantity = Integer.parseInt(product_quantity.getText().toString());
@@ -120,12 +122,12 @@ public class Seller_Product_detail_Frag extends AppCompatActivity {
 
 
         //sqlite 실행
-            dbHelper.addCart(new Cart(p_id , m_id, name, image, price, quantity, delivery, options));
+        dbCartHelper.addCart(new Cart(p_id, m_id, name, image, price, quantity, delivery, options));
 
 //        Toast.makeText(getApplicationContext(), "장바구니 등록 성공",
 //                Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(getApplicationContext(),Customer_Cart_Frag.class);
+        Intent intent = new Intent(getApplicationContext(), Customer_Cart_Frag.class);
         startActivity(intent);
 
     }

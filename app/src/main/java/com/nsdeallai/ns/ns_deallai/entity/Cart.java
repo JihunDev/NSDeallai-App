@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.entity;
 
 /**
  * Created by SangSang on 2015-08-26.

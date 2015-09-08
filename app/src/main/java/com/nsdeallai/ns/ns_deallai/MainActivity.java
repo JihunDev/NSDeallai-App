@@ -21,15 +21,28 @@ public class MainActivity extends AppCompatActivity {
         ClickProduct();
         ClickInsertProduct();
         ClickCart();
+        ClickStarList();
+    }
+
+    private void ClickStarList() {
+        button = (Button) findViewById(R.id.product_review_list_button);
+
+        button.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Seller_Product_detail_Test.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void ClickCart() {
-        button = (Button)findViewById(R.id.see_cart_button);
+        button = (Button) findViewById(R.id.see_cart_button);
 
-        button.setOnClickListener(new Button.OnClickListener(){
+        button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Customer_Cart_Frag.class);
+                Intent intent = new Intent(getApplicationContext(), Customer_Cart_Frag.class);
                 startActivity(intent);
             }
         });
@@ -38,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private void ClickInsertProduct() {
         button = (Button) findViewById(R.id.product_insert_button);
 
-        button.setOnClickListener(new Button.OnClickListener(){
+        button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Seller_Product_Insert_Frag.class);
+                Intent intent = new Intent(getApplicationContext(), Seller_Product_Insert_Frag.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Seller_Product_detail_Frag.class);
+                Intent intent = new Intent(getApplicationContext(), Seller_Product_detail_Frag.class);
                 startActivity(intent);
             }
         });
@@ -82,14 +95,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void ClickStar(){
+    public void ClickStar() {
         button = (Button) findViewById(R.id.starbutton);
 
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(getApplicationContext(),"zzzz",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(),Customer_StarPoint_Frag.class);
+                // Toast.makeText(getApplicationContext(),"zzzz",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), Customer_StarPoint_Frag.class);
                 startActivity(intent);
             }
         });

@@ -8,7 +8,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.List;
+import com.nsdeallai.ns.ns_deallai.db.helper.DbCartHelper;
+import com.nsdeallai.ns.ns_deallai.entity.Cart;
 
 public class Test extends Activity { //Cart CRUD 확인 CLASS
 
@@ -17,7 +18,7 @@ public class Test extends Activity { //Cart CRUD 확인 CLASS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DbHelper db = new DbHelper(this);
+        DbCartHelper db = new DbCartHelper(this);
 
         /**
          * CRUD Operations
