@@ -126,7 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:checked="false"
-                    android:text="판매자" />
+                    android:text="판매자"
+                    android:value="y" />
 
                 <RadioButton
                     android:id="@+id/singup_seller_cu_rb"
@@ -134,7 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:checked="false"
-                    android:text="구매자" />
+                    android:text="구매자"
+                    android:value="n" />
             </RadioGroup>
         </TableRow>
 

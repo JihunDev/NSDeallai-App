@@ -18,8 +18,8 @@ import java.net.URISyntaxException;
 /**
  * Created by Kermit on 2015-08-30.
  */
-public class User_SignUpActivity extends AppCompatActivity {
-
+public class User_SignUpActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+    private String isSeller = "";
     private Socket mSocket;
 
     {
@@ -46,9 +46,10 @@ public class User_SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_singup);
-
         mSocket.connect().emit("start", "Sign Up Go!");
 
+        RadioGroup group = (RadioGroup) findViewById(R.id.singup_saller_rg);
+        group.setOnCheckedChangeListener(this);
     }
 
     /**
@@ -76,27 +77,6 @@ public class User_SignUpActivity extends AppCompatActivity {
         String address = editTextAddress.getText().toString();
         String tel = editTextTel.getText().toString();
         String email = editTextEmail.getText().toString();
-        String isSeller = "";
-
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.singup_saller_rg);
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                /*값을 method 밖으로 꺼낼 방법을 찾아야함.*/
-                switch (checkedId) {
-                    case R.id.singup_seller_se_rb:
-                        //isSeller = "y";
-                        break;
-                    case R.id.singup_seller_cu_rb:
-                        //isSeller = "n";
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
 
         if (id.equals("")) {
             Toast.makeText(getApplicationContext(), "ID를 입력하세요.", Toast.LENGTH_SHORT).show();
@@ -147,13 +127,24 @@ public class User_SignUpActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            System.out.println(isSeller);
             mSocket.emit("insert", jsonObject);
 
             setContentView(R.layout.user_singup_success);
             success.start();
         } else {
             Toast.makeText(getApplicationContext(), "비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int id) {
+        if(id == R.id.singup_seller_cu_rb){
+            isSeller = "n";
+        }
+        if(id == R.id.singup_seller_se_rb){
+            isSeller = "y";
         }
     }
 }
