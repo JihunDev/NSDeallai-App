@@ -33,7 +33,7 @@ import java.util.ArrayList;
  */
 public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
 
-    private ArrayList<PR_REVIEW> pr_reviewData = new ArrayList<PR_REVIEW>();
+    private ArrayList<PR_REVIEW> pr_arraylist = new ArrayList<PR_REVIEW>();
 
     TextView p_id, u_id, star_review;
     RatingBar star_ratingbar;
@@ -50,14 +50,16 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
             throw new RuntimeException(e);
         }
     }
-
+    public void setItems(ArrayList<PR_REVIEW> pr_arraylist){
+        this.pr_arraylist = pr_arraylist;
+    }
 
     /**
      *
      * */
     public DbStarAdapter(Context context, int resource, ArrayList<PR_REVIEW> pr_arraylist) {
         super(context, resource, pr_arraylist);
-        pr_reviewData = pr_arraylist;
+        this.pr_arraylist = pr_arraylist;
     }
 
 
@@ -80,16 +82,16 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
          * @description : int형은 valeOf로 가져오지 않으면
          * android.content.res.Resources$NotFoundException: String resource ID 오류가 남.
          * */
-        p_id.setText(String.valueOf(pr_reviewData.get(position).getP_id()));
-        u_id.setText(pr_reviewData.get(position).getU_id());
-        star_ratingbar.setRating(pr_reviewData.get(position).getPr_star());
-        star_review.setText(pr_reviewData.get(position).getPr_content());
+        p_id.setText(String.valueOf(pr_arraylist.get(position).getP_id()));
+        u_id.setText(pr_arraylist.get(position).getU_id());
+        star_ratingbar.setRating(pr_arraylist.get(position).getPr_star());
+        star_review.setText(pr_arraylist.get(position).getPr_content());
 
-        final String o_id = pr_reviewData.get(position).getO_id();
-        final int sp_id = Integer.parseInt(String.valueOf(pr_reviewData.get(position).getP_id()));
-        final String su_id = pr_reviewData.get(position).getU_id();
-        final float st_Ratingbar = Float.parseFloat(String.valueOf(pr_reviewData.get(position).getPr_star()));
-        final String st_reivew = pr_reviewData.get(position).getPr_content();
+        final String o_id = pr_arraylist.get(position).getO_id();
+        final int sp_id = Integer.parseInt(String.valueOf(pr_arraylist.get(position).getP_id()));
+        final String su_id = pr_arraylist.get(position).getU_id();
+        final float st_Ratingbar = Float.parseFloat(String.valueOf(pr_arraylist.get(position).getPr_star()));
+        final String st_reivew = pr_arraylist.get(position).getPr_content();
 
         star_update_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +130,13 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
         delete.setMessage("정말로 삭제하시겠습니까?");
         delete.setCancelable(false);
 
+        delete.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                setDismiss(mDialog);
+            }
+        });
+
         delete.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -136,22 +145,8 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
                 socket.emit("delete", o_id);
                 Log.d("DELETE", "DELETE 완료");
 
-                pr_reviewData.remove(pr_reviewData.get(position));
-                DbStarAdapter dbadapter = new DbStarAdapter(getContext(),0,pr_reviewData);
-                dbadapter.notifyDataSetChanged();
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        pr_reviewData.notify();
-//                    }
-//                });
-            }
-        });
-
-        delete.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                setDismiss(mDialog);
+                pr_arraylist.remove(pr_arraylist.get(position));
+                DbStarAdapter.this.notifyDataSetChanged();
             }
         });
 
@@ -167,13 +162,5 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
     }
-
-    /**
-     * list내용 변할 시 동작하는 함수
-     */
-    protected void onContentChanged() {
-        notifyDataSetChanged();
-    }
-
 
 }
