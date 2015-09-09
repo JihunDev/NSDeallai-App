@@ -6,8 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -26,7 +26,12 @@ import java.util.List;
  * Created by Kermit on 2015-08-30.
  */
 public class User_ChatActivity extends AppCompatActivity {
-    private RecyclerView lecyclerView;
+
+    private RecyclerView mMessagesView;
+    private List<Message> mMessages = new ArrayList<Message>();
+    private MessageAdapter mAdapter;
+    public int itemLayout;
+
     private Socket mSocket;
 
     {
@@ -39,21 +44,46 @@ public class User_ChatActivity extends AppCompatActivity {
 
     public User_ChatActivity() {
         super();
+
     }
 
+    /**
+     * RecyclerView 초기화
+     * <p/>
+     * RecyclerView 초기 Layout을 recyclerView지정
+     * LayoutManager 초기화
+     * Animator 초기화
+     * Adapter 초기화
+     */
     private void initLayout() {
-        lecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mMessagesView = (RecyclerView) findViewById(R.id.recyclerView);
+        mMessagesView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mMessagesView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter = new MessageAdapter(mMessages, itemLayout);
+        mMessagesView.setAdapter(mAdapter);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_chat_main);
 
+        /*Layout 초기화*/
         initLayout();
-        mSocket.on("reChat", newMessage);
+
         mSocket.connect().emit("start", "Chat go!!");
+
+       /*Server로부터 받는 메세지 리스너*/
+        mSocket.on("reChat", newMessage);
+
+        Button sendButton = (Button) this.findViewById(R.id.chat_send_bt);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptSend(v);
+            }
+        });
     }
 
     /**
@@ -71,10 +101,16 @@ public class User_ChatActivity extends AppCompatActivity {
         }
         mInputMessageView.setText("");
         mSocket.emit("newMessage", message);
+
+        String username = "Tes1";// test
+        sendMessage(message, username);
+
     }
 
     /**
-     * 채팅 수신 이벤트
+     * 채팅 수신 리스너
+     *
+     * @discription 미완성
      */
     private Emitter.Listener newMessage = new Emitter.Listener() {
 
@@ -84,32 +120,34 @@ public class User_ChatActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-
                     String msg;
                     try {
                         msg = data.getString("message");
                     } catch (JSONException e) {
-                        return;
+                        e.printStackTrace();
                     }
-
-                    String username = "Test"; // Test
-
-                    Message message = new Message();
-                    message.setMessage(msg);
-                    message.setName(username);
-
-                    List<Message> list = new ArrayList<Message>();
-                    list.add(message);
-
-                    lecyclerView.setAdapter(new MessageAdapter(list,R.layout.item_message));
-                    lecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    lecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                    Log.d("Tag Socket message : ", msg);
                 }
             });
         }
     };
 
+    /**
+     * 메세지 전송 이벤트
+     *
+     * @discription 미완성
+     */
+    public void sendMessage(String message, String username) {
+        mMessages.add(new Message.Builder(Message.TYPE_MESSAGE).username(username).message(message).build());
+        mAdapter.notifyItemInserted(mMessages.size() - 1);
+        scrollPosition();
+    }
 
+    /**
+     * 메세지 스크롤 포지션 이벤트
+     *
+     * @discription mAdapter에서 size의 값을 가져와 포지션 위치를 지정
+     */
+    public void scrollPosition() {
+        mMessagesView.scrollToPosition(mAdapter.getItemCount() - 1);
+    }
 }

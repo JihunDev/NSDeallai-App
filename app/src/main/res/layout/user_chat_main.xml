@@ -35,10 +35,9 @@
             android:singleLine="true" />
 
         <Button
-            android:id="@+id/send_button"
+            android:id="@+id/chat_send_bt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="attemptSend"
             android:text="전송" />
     </LinearLayout>
 

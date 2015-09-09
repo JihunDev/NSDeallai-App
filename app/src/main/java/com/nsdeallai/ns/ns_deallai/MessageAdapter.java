@@ -6,38 +6,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
-    public List<Message> messageList;
+    public List<Message> messageList = new ArrayList<Message>();
     public int itemLayout;
 
-    public MessageAdapter(List<Message> messageList, int itemLayout) {
-        this.messageList = messageList;
-        this.itemLayout = itemLayout;
+    public MessageAdapter(List<Message> message, int item) {
+        messageList = message;
+        itemLayout = item;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-        return new ViewHolder(view);
+        int layout = -1;
+        switch (viewType) {
+            case Message.TYPE_MESSAGE:
+                layout = R.layout.item_message;
+                break;
+            case Message.TYPE_LOG:
+                layout = R.layout.item_log;
+                break;
+            case Message.TYPE_ACTION:
+                layout = R.layout.item_action;
+                break;
+        }
+        View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+        return new ViewHolder(v);
     }
-
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Message item = messageList.get(position);
 
-        holder.textViewUserName.setText(item.getName());
+        holder.textViewUserName.setText(item.getUsername());
         holder.textViewMessage.setText(item.getMessage());
-
     }
 
     @Override
     public int getItemCount() {
-        return messageList.size();
+        return  messageList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

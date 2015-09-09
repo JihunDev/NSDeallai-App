@@ -5,22 +5,53 @@ package com.nsdeallai.ns.ns_deallai;
  * Created by Kermit on 2015-09-07.
  */
 public class Message {
-    private String name;
-    private String Message;
+    public static final int TYPE_MESSAGE = 0;
+    public static final int TYPE_LOG = 1;
+    public static final int TYPE_ACTION = 2;
 
-    public String getName() {
-        return name;
-    }
+    private String mMessage;
+    private int mType;
+    private String mUsername;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    private Message() {}
+
+    public int getType() {
+        return mType;
+    };
 
     public String getMessage() {
-        return Message;
-    }
+        return mMessage;
+    };
 
-    public void setMessage(String message) {
-        Message = message;
+    public String getUsername() {
+        return mUsername;
+    };
+
+    public static class Builder {
+        private final int mType;
+        private String mUsername;
+        private String mMessage;
+
+        public Builder(int type) {
+            mType = type;
+        }
+
+        public Builder username(String username) {
+            mUsername = username;
+            return this;
+        }
+
+        public Builder message(String message) {
+            mMessage = message;
+            return this;
+        }
+
+        public Message build() {
+            Message message = new Message();
+            message.mType = mType;
+            message.mUsername = mUsername;
+            message.mMessage = mMessage;
+            return message;
+        }
     }
 }
