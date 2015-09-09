@@ -20,9 +20,19 @@ public class PR_REVIEW {
         this.p_id = p_id;
     }
 
+    public PR_REVIEW(String o_id) {
+        this.o_id = o_id;
+    }
+
     public PR_REVIEW(int p_id, String u_id) {
         this.p_id = p_id;
         this.u_id = u_id;
+    }
+
+    public PR_REVIEW(String o_id, String pr_content, float pr_star) {
+        this.o_id = o_id;
+        this.pr_content = pr_content;
+        this.pr_star = pr_star;
     }
 
     public PR_REVIEW(int pr_id, String o_id, int c_id, int p_id, String u_id, String pr_content, float pr_star) {

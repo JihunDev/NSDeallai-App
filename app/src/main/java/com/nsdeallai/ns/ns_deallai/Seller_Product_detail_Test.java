@@ -82,8 +82,6 @@ public class Seller_Product_detail_Test extends AppCompatActivity {
                             }
                         }
                         lists();
-
-
                     }
                 });
             }
@@ -91,7 +89,9 @@ public class Seller_Product_detail_Test extends AppCompatActivity {
 
     }
 
-
+    /**
+     * 다른 thread안에서는 동작하지 않으므로 함수로 따로 빼서 넣어줌.
+     * */
     private void lists() {
         System.out.println("list : " + pr_arraylist);
         dbAdapter = new DbStarAdapter(this, 0, pr_arraylist);
