@@ -1,10 +1,13 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.db.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.nsdeallai.ns.ns_deallai.entity.Message;
+import com.nsdeallai.ns.ns_deallai.R;
 
 import java.util.ArrayList;
 import java.util.List;

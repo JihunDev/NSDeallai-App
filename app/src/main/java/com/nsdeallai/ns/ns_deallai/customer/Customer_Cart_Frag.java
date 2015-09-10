@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.customer;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.nsdeallai.ns.ns_deallai.R;
 import com.nsdeallai.ns.ns_deallai.db.adapter.DbCartAdapter;
 import com.nsdeallai.ns.ns_deallai.db.helper.DbCartHelper;
 

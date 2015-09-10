@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.user;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import com.nsdeallai.ns.ns_deallai.R;
+import com.nsdeallai.ns.ns_deallai.db.handler.DbUserHandler;
 
 /**
  * Created by Kermit on 2015-08-30.

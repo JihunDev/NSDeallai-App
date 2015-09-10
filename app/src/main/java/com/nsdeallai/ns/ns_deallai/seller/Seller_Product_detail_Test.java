@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.seller;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nsdeallai.ns.ns_deallai.R;
 import com.nsdeallai.ns.ns_deallai.db.adapter.DbStarAdapter;
 import com.nsdeallai.ns.ns_deallai.entity.PR_REVIEW;
 

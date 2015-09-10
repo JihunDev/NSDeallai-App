@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.db.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

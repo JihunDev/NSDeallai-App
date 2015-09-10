@@ -8,6 +8,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.nsdeallai.ns.ns_deallai.customer.Customer_Cart_Frag;
+import com.nsdeallai.ns.ns_deallai.customer.Customer_StarPoint_Frag;
+import com.nsdeallai.ns.ns_deallai.db.handler.DbUserHandler;
+import com.nsdeallai.ns.ns_deallai.seller.Seller_Product_Insert_Frag;
+import com.nsdeallai.ns.ns_deallai.seller.Seller_Product_detail_Frag;
+import com.nsdeallai.ns.ns_deallai.seller.Seller_Product_detail_Test;
+import com.nsdeallai.ns.ns_deallai.user.User_ChatActivity;
+import com.nsdeallai.ns.ns_deallai.user.User_LoginActivity;
+import com.nsdeallai.ns.ns_deallai.user.User_MyPageActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

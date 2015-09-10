@@ -1,9 +1,11 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.db.handler;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.nsdeallai.ns.ns_deallai.db.helper.DbUserHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;

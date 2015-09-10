@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.customer;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;

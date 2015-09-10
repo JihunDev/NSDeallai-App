@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.seller;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.nsdeallai.ns.ns_deallai.R;
+import com.nsdeallai.ns.ns_deallai.customer.Customer_Buy_Frag;
+import com.nsdeallai.ns.ns_deallai.customer.Customer_Cart_Frag;
 import com.nsdeallai.ns.ns_deallai.db.helper.DbCartHelper;
 import com.nsdeallai.ns.ns_deallai.entity.Cart;
 

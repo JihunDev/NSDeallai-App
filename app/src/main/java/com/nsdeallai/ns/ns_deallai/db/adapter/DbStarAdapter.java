@@ -1,13 +1,10 @@
 package com.nsdeallai.ns.ns_deallai.db.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +16,8 @@ import android.widget.TextView;
 
 import com.github.nkzawa.socketio.client.Socket;
 import com.github.nkzawa.socketio.client.IO;
-import com.nsdeallai.ns.ns_deallai.Customer_StarPoint_update;
+import com.nsdeallai.ns.ns_deallai.customer.Customer_StarPoint_update;
 import com.nsdeallai.ns.ns_deallai.R;
-import com.nsdeallai.ns.ns_deallai.Seller_Product_Insert_Frag;
 import com.nsdeallai.ns.ns_deallai.entity.PR_REVIEW;
 
 import java.net.URISyntaxException;

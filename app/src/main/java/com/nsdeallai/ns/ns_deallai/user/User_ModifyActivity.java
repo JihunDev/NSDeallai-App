@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.user;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nsdeallai.ns.ns_deallai.Constants;
+import com.nsdeallai.ns.ns_deallai.R;
+import com.nsdeallai.ns.ns_deallai.db.handler.DbUserHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

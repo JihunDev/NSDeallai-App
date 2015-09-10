@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.customer;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nsdeallai.ns.ns_deallai.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

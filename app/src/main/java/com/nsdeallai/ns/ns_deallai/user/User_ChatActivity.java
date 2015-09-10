@@ -1,4 +1,4 @@
-package com.nsdeallai.ns.ns_deallai;
+package com.nsdeallai.ns.ns_deallai.user;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,10 @@ import android.widget.EditText;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nsdeallai.ns.ns_deallai.Constants;
+import com.nsdeallai.ns.ns_deallai.R;
+import com.nsdeallai.ns.ns_deallai.db.adapter.MessageAdapter;
+import com.nsdeallai.ns.ns_deallai.entity.Message;
 
 import org.json.JSONException;
 import org.json.JSONObject;
