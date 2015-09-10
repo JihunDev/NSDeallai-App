@@ -8,15 +8,13 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.R;
 import com.nsdeallai.ns.ns_deallai.seller.Seller_Product_detail_Test;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URISyntaxException;
 
 /**
  * Created by SangSang on 2015-09-09.
@@ -29,15 +27,7 @@ public class Customer_StarPoint_update extends AppCompatActivity {
     String o_id, u_id, star_review;
     int p_id;
     float star_ratingbar;
-    Socket socket;
-
-    {
-        try {
-            socket = IO.socket("http://211.253.11.138:3004");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    Socket socket = Server.SererConnect();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

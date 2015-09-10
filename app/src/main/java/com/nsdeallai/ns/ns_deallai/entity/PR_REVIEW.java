@@ -7,7 +7,6 @@ public class PR_REVIEW {
 
     int pr_id;
     String o_id;
-    int c_id;
     int p_id;
     String u_id;
     String pr_content;
@@ -35,10 +34,9 @@ public class PR_REVIEW {
         this.pr_star = pr_star;
     }
 
-    public PR_REVIEW(int pr_id, String o_id, int c_id, int p_id, String u_id, String pr_content, float pr_star) {
+    public PR_REVIEW(int pr_id, String o_id, int p_id, String u_id, String pr_content, float pr_star) {
         this.pr_id = pr_id;
         this.o_id = o_id;
-        this.c_id = c_id;
         this.p_id = p_id;
         this.u_id = u_id;
         this.pr_content = pr_content;
@@ -59,14 +57,6 @@ public class PR_REVIEW {
 
     public void setO_id(String o_id) {
         this.o_id = o_id;
-    }
-
-    public int getC_id() {
-        return c_id;
-    }
-
-    public void setC_id(int c_id) {
-        this.c_id = c_id;
     }
 
     public int getP_id() {
@@ -106,7 +96,6 @@ public class PR_REVIEW {
         return "PR_REVIEW{" +
                 "pr_id=" + pr_id +
                 ", o_id='" + o_id + '\'' +
-                ", c_id=" + c_id +
                 ", p_id=" + p_id +
                 ", u_id='" + u_id + '\'' +
                 ", pr_content='" + pr_content + '\'' +

@@ -15,12 +15,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.github.nkzawa.socketio.client.Socket;
-import com.github.nkzawa.socketio.client.IO;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.customer.Customer_StarPoint_update;
 import com.nsdeallai.ns.ns_deallai.R;
 import com.nsdeallai.ns.ns_deallai.entity.PR_REVIEW;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -36,16 +35,9 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
     Button star_delete_button, star_update_button;
 
     private AlertDialog mDialog = null;
-    Socket socket;
+    Socket socket = Server.SererConnect();
 
 
-    {
-        try {
-            socket = IO.socket("http://211.253.11.138:3004");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public void setItems(ArrayList<PR_REVIEW> pr_arraylist){
         this.pr_arraylist = pr_arraylist;
     }

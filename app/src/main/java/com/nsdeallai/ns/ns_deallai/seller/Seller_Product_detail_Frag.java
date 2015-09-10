@@ -24,7 +24,6 @@ import com.nsdeallai.ns.ns_deallai.entity.Cart;
 public class Seller_Product_detail_Frag extends AppCompatActivity {
 
     DbCartHelper dbCartHelper;
-    SQLiteDatabase db;
     Spinner spinner;
 
     Button DirectBuy, GotoCart;

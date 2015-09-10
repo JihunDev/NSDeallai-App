@@ -20,7 +20,6 @@ public class DbUserHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE user (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "u_id VARCHAR(20)," +
-                "c_id NUMBER(11)," +
                 "u_pwd VARCHAR(20)," +
                 "u_name VARCHAR(20)," +
                 "u_address VARCHAR(100)," +

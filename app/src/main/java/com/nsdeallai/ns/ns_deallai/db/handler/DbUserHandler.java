@@ -76,7 +76,6 @@ public class DbUserHandler {
         ContentValues values = new ContentValues();
         try {
             values.put("u_id", data.getString("u_id"));
-            values.put("c_id", data.getString("c_id"));
             values.put("u_pwd", data.getString("u_pwd"));
             values.put("u_name", data.getString("u_name"));
             values.put("u_address", data.getString("u_address"));

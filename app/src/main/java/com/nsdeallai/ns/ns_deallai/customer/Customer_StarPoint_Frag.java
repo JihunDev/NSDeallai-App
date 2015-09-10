@@ -1,5 +1,6 @@
 package com.nsdeallai.ns.ns_deallai.customer;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,14 +9,13 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.R;
+import com.nsdeallai.ns.ns_deallai.db.handler.DbUserHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URISyntaxException;
 
 /**
  * Created by SangSang on 2015-08-12.
@@ -27,15 +27,7 @@ public class Customer_StarPoint_Frag extends AppCompatActivity {
     private RatingBar ratingBar;
     private String value;
     private Button button;
-    private Socket mSocket;
-
-    {
-        try {
-            mSocket = IO.socket("http://211.253.11.138:3004");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private Socket mSocket = Server.SererConnect();
 
 
     @Override
@@ -107,11 +99,20 @@ public class Customer_StarPoint_Frag extends AppCompatActivity {
      */
     private void insertStar() {
 
+        DbUserHandler dbUserHandler = DbUserHandler.open(this);
+
+        Cursor cursor = dbUserHandler.selectDb();
+        cursor.moveToFirst();
+        String u_id = null;
+
+        if (cursor.getCount() != 0) {
+            cursor.moveToLast();
+            u_id = String.valueOf(cursor.getString(1));
+        }
+
         int pr_id = 1;
         String o_id = "1_2015-08-28 16:53:24";
-        int c_id = 1;
         int p_id = 1;
-        String u_id = "id01";
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         final EditText product_review = (EditText) findViewById(R.id.productReview);
@@ -121,7 +122,6 @@ public class Customer_StarPoint_Frag extends AppCompatActivity {
         try {
             jsonObject.put("pr_id", pr_id);
             jsonObject.put("o_id", o_id);
-            jsonObject.put("c_id", c_id);
             jsonObject.put("p_id", p_id);
             jsonObject.put("u_id", u_id);
             jsonObject.put("pr_content", product_review.getText().toString());

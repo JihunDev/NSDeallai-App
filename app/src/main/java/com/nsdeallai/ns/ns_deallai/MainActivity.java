@@ -83,6 +83,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void ClickStar() {
+        button = (Button) findViewById(R.id.starbutton);
+
+        button.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(getApplicationContext(),"zzzz",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), Customer_StarPoint_Frag.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     /**
      * 버튼 이벤트
      *
@@ -143,19 +156,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void ClickStar() {
-        button = (Button) findViewById(R.id.starbutton);
-
-        button.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toast.makeText(getApplicationContext(),"zzzz",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Customer_StarPoint_Frag.class);
-                startActivity(intent);
-            }
-        });
     }
 
 

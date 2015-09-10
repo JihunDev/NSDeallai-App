@@ -11,9 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.nsdeallai.ns.ns_deallai.Constants;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.R;
 import com.nsdeallai.ns.ns_deallai.db.adapter.MessageAdapter;
 import com.nsdeallai.ns.ns_deallai.entity.Message;
@@ -21,7 +20,6 @@ import com.nsdeallai.ns.ns_deallai.entity.Message;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +34,15 @@ public class User_ChatActivity extends AppCompatActivity {
     private MessageAdapter mAdapter;
     public int itemLayout;
 
-    private Socket mSocket;
+    private Socket mSocket = Server.SererConnect();
 
-    {
-        try {
-            mSocket = IO.socket(Constants.SERVER_URL);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    {
+//        try {
+//            mSocket = IO.socket(Server.SERVER_URL);
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public User_ChatActivity() {
         super();

@@ -7,30 +7,27 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.nsdeallai.ns.ns_deallai.Constants;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URISyntaxException;
 
 /**
  * Created by Kermit on 2015-08-30.
  */
 public class User_SignUpActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
     private String isSeller = "";
-    private Socket mSocket;
+    private Socket mSocket = Server.SererConnect();
 
-    {
-        try {
-            mSocket = IO.socket(Constants.SERVER_URL);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    {
+//        try {
+//            mSocket = IO.socket(Server.SERVER_URL);
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     /*스레드를 이용하여 화면 finish로 날려버림*/
     final Thread success = new Thread() {

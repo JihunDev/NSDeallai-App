@@ -9,6 +9,7 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.nsdeallai.ns.ns_deallai.R;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.db.adapter.DbStarAdapter;
 import com.nsdeallai.ns.ns_deallai.entity.PR_REVIEW;
 
@@ -26,17 +27,8 @@ public class Seller_Product_detail_Test extends AppCompatActivity {
     ListView list;
     DbStarAdapter dbAdapter;
     Cursor cursor;
-    private Socket socket;
+    private Socket socket = Server.SererConnect();
     ArrayList<PR_REVIEW> pr_arraylist = new ArrayList<PR_REVIEW>();
-
-    {
-        try {
-            socket = IO.socket("http://211.253.11.138:3004");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,13 +62,12 @@ public class Seller_Product_detail_Test extends AppCompatActivity {
                             try {
                                 int pr_id = Integer.parseInt(arg.getString("pr_id"));
                                 String o_id = arg.getString("o_id");
-                                int c_id = Integer.parseInt(arg.getString("c_id"));
                                 int p_id = Integer.parseInt(arg.getString("p_id"));
                                 String u_id = arg.getString("u_id");
                                 String pr_content = arg.getString("pr_content");
                                 float pr_star = Float.parseFloat(arg.getString("pr_star"));
 
-                                pr_arraylist.add(new PR_REVIEW(pr_id, o_id, c_id, p_id, u_id, pr_content, pr_star));
+                                pr_arraylist.add(new PR_REVIEW(pr_id, o_id, p_id, u_id, pr_content, pr_star));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

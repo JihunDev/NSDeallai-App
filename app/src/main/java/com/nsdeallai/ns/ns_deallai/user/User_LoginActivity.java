@@ -8,31 +8,28 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
-import com.nsdeallai.ns.ns_deallai.Constants;
+import com.nsdeallai.ns.ns_deallai.Server;
 import com.nsdeallai.ns.ns_deallai.R;
 import com.nsdeallai.ns.ns_deallai.db.handler.DbUserHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
-
 /**
  * Created by Kermit on 2015-08-30.
  */
 public class User_LoginActivity extends AppCompatActivity {
 
-    private Socket mSocket;
+    private Socket mSocket = Server.SererConnect();
 
-    {
-        try {
-            mSocket = IO.socket(Constants.SERVER_URL);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    {
+//        try {
+//            mSocket = IO.socket(Server.SERVER_URL);
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
