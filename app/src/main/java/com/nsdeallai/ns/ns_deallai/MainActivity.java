@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main);
+        setContentView(R.layout.activity_main);
 
         ClickStar();
         ClickProduct();
@@ -72,6 +73,45 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 버튼 이벤트
+     *
+     * @param v : View 를 받아 안에 있는 id값 사용을 위해
+     * @discription XML 에서 android:onClick 으로 동작
+     * Parameter 값으로 View 받아 v.getId()를 이용하여 버튼 아이디 찾음
+     * intent 를 사용하여 화면을 출력
+     */
+    public void mainOnClick(View v) {
+        Intent intent;
+
+        switch (v.getId()) {
+            case R.id.main_login_bu:
+                intent = new Intent(this, User_LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_mypage_bu:
+                intent = new Intent(this, User_MyPageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_chat_bu:
+                intent = new Intent(this, User_ChatActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_logout_bu:
+                logOut();
+                break;
+        }
+    }
+
+    /**
+     * 로그 아웃 버튼 클릭 이벤트
+     *
+     * @discription 로그 아웃 버튼 클릭시 sqlite 디비 테이블을 upgrade를 사용하여 초기화
+     */
+    private void logOut() {
+        DbUserHandler dbUserHandler = DbUserHandler.open(this);
+        dbUserHandler.upgrade();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
