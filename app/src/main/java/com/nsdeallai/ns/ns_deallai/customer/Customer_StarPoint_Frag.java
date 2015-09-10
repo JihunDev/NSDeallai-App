@@ -93,7 +93,7 @@ public class Customer_StarPoint_Frag extends AppCompatActivity {
      *
      * @description : 모든 정보를 jsonObject에 넣어서 같이 보냄.
      * 서버의 SangSangTest 안에 StarCRUD.js를 실행시키면
-     * mSocket.emit('insert',jsonObject); 시 서버로 넘어가 마리아db에 저장된다.
+     * mSocket.emit('starInsert',jsonObject); 시 서버로 넘어가 마리아db에 저장된다.
      * manifest에 인터넷 사용하는 것을 잊지 말고 쓰도록하자!
      * <uses-permission android:name="android.permission.INTERNET"/>
      */
@@ -127,7 +127,7 @@ public class Customer_StarPoint_Frag extends AppCompatActivity {
             jsonObject.put("pr_content", product_review.getText().toString());
             jsonObject.put("pr_star", value);
 
-            mSocket.emit("insert", jsonObject);
+            mSocket.emit("starInsert", jsonObject);
             Toast.makeText(getBaseContext(), "별점 : " + value + ", 의견 : " + product_review.getText().toString(), Toast.LENGTH_SHORT).show();
 
         } catch (JSONException e) {

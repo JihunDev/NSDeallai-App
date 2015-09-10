@@ -21,14 +21,6 @@ public class User_SignUpActivity extends AppCompatActivity implements RadioGroup
     private String isSeller = "";
     private Socket mSocket = Server.SererConnect();
 
-//    {
-//        try {
-//            mSocket = IO.socket(Server.SERVER_URL);
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     /*스레드를 이용하여 화면 finish로 날려버림*/
     final Thread success = new Thread() {
         public void run() {
@@ -127,7 +119,7 @@ public class User_SignUpActivity extends AppCompatActivity implements RadioGroup
                 e.printStackTrace();
             }
             System.out.println(isSeller);
-            mSocket.emit("insert", jsonObject);
+            mSocket.emit("userInsert", jsonObject);
 
             setContentView(R.layout.user_singup_success);
             success.start();

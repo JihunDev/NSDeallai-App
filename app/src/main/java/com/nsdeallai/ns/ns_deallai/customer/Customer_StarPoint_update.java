@@ -74,7 +74,7 @@ public class Customer_StarPoint_update extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        socket.emit("update",jsonObject);
+        socket.emit("starUpdate",jsonObject);
 
         Intent intent = new Intent(getApplicationContext(), Seller_Product_detail_Test.class);
         startActivity(intent);

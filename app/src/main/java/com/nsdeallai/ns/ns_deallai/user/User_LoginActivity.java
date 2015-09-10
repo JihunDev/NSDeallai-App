@@ -23,14 +23,6 @@ public class User_LoginActivity extends AppCompatActivity {
 
     private Socket mSocket = Server.SererConnect();
 
-//    {
-//        try {
-//            mSocket = IO.socket(Server.SERVER_URL);
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +69,7 @@ public class User_LoginActivity extends AppCompatActivity {
         final EditText editTextId = (EditText) findViewById(R.id.user_login_id);
         String idLayout = editTextId.getText().toString();
 
-        mSocket.emit("login", idLayout).on("loginCheck", new Emitter.Listener() {
+        mSocket.emit("userLogin", idLayout).on("userLoginCheck", new Emitter.Listener() {
             String pwdLayout = "";
             String id = "";
             String pwd = "";
@@ -104,12 +96,12 @@ public class User_LoginActivity extends AppCompatActivity {
                             /*Sqlite insert*/
                             dbUserHandler.insertDb(data);
                             /*loginCheck 이벤트 종료*/
-                            mSocket.off("loginCheck");
+                            mSocket.off("userLoginCheck");
                         }
                         if (!pwdLayout.equals(pwd) || id.equals("fail") && pwd.equals("fail")) {
                             Toast.makeText(getApplicationContext(), "아이디와 비밀번호를 확인하세요.", Toast.LENGTH_SHORT).show();
                             /*loginCheck 이벤트 종료*/
-                            mSocket.off("loginCheck");
+                            mSocket.off("userLoginCheck");
                         }
                     }
                 });

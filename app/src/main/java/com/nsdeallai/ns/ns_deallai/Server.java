@@ -14,7 +14,7 @@ public class Server {
 
     public static Socket SererConnect() {
 
-        String SERVER_URL = "http://211.253.11.138:3003";
+        String SERVER_URL = "http://211.253.11.138:3000";
         try {
             SERVER = IO.socket(SERVER_URL);
         } catch (URISyntaxException e) {

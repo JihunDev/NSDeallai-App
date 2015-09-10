@@ -36,13 +36,6 @@ public class User_ChatActivity extends AppCompatActivity {
 
     private Socket mSocket = Server.SererConnect();
 
-//    {
-//        try {
-//            mSocket = IO.socket(Server.SERVER_URL);
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     public User_ChatActivity() {
         super();
@@ -77,7 +70,7 @@ public class User_ChatActivity extends AppCompatActivity {
         mSocket.connect().emit("start", "Chat go!!");
 
        /*Server로부터 받는 메세지 리스너*/
-        mSocket.on("reChat", newMessage);
+        mSocket.on("userReMessage", newMessage);
 
         Button sendButton = (Button) this.findViewById(R.id.chat_send_bt);
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +95,7 @@ public class User_ChatActivity extends AppCompatActivity {
             return;
         }
         mInputMessageView.setText("");
-        mSocket.emit("newMessage", message);
+        mSocket.emit("userNewMessage", message);
 
         String username = "Tes1";// test
         sendMessage(message, username);

@@ -23,13 +23,6 @@ public class User_ModifyActivity extends AppCompatActivity {
 
     private Socket mSocket = Server.SererConnect();
 
-//    {
-//        try {
-//            mSocket = IO.socket(Server.SERVER_URL);
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +79,10 @@ public class User_ModifyActivity extends AppCompatActivity {
             cursor.moveToLast();
 
             idEt.setText(String.valueOf(cursor.getString(1)));
-            nameEt.setText(String.valueOf(cursor.getString(4)));
-            addressEt.setText(String.valueOf(cursor.getString(5)));
-            eMailEt.setText(String.valueOf(cursor.getString(6)));
-            telEt.setText(String.valueOf(cursor.getString(7)));
+            nameEt.setText(String.valueOf(cursor.getString(3)));
+            addressEt.setText(String.valueOf(cursor.getString(4)));
+            eMailEt.setText(String.valueOf(cursor.getString(5)));
+            telEt.setText(String.valueOf(cursor.getString(6)));
         }
     }
 
@@ -133,7 +126,7 @@ public class User_ModifyActivity extends AppCompatActivity {
         }
 
         if (pwd.equals(pwdCheck) && !(pwd.equals("") && pwdCheck.equals(""))) {
-            mSocket.emit("update", jsonObject);
+            mSocket.emit("userUpdate", jsonObject);
             try {
                 /* updateDb 메소드에서 throws 던짐*/
                 dbUserHandler.updateDb(jsonObject);
@@ -157,9 +150,9 @@ public class User_ModifyActivity extends AppCompatActivity {
         EditText idEt = (EditText) findViewById(R.id.modify_id_et);
         String id = idEt.getText().toString();
 
-        mSocket.emit("Start", "delete GO!");
+        mSocket.emit("start", "delete GO!");
 
-        mSocket.emit("delete", id);
+        mSocket.emit("userDelete", id);
 
         Intent intent = new Intent(this, User_DeleteActivity.class);
         startActivity(intent);

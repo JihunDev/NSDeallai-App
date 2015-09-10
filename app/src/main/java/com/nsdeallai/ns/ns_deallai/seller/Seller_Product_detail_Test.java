@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 /**
  * Created by SangSang on 2015-09-08.
+ * 상품평 보는 곳... 일부로 우선 만듬...
  */
 public class Seller_Product_detail_Test extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class Seller_Product_detail_Test extends AppCompatActivity {
 
     private void selectDB() {
 
-        socket.emit("select", "1").on("res", new Emitter.Listener() {
+        socket.emit("starSelect", "1").on("res", new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
                 System.out.println("args : " + args);

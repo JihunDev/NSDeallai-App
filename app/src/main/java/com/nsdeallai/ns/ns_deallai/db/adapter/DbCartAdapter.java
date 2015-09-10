@@ -1,6 +1,7 @@
 package com.nsdeallai.ns.ns_deallai.db.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,9 +62,10 @@ public class DbCartAdapter extends CursorAdapter {
 
         checkBox = (CheckBox) view.findViewById(R.id.cart_checkbox);
         final int position = cursor.getPosition();
-        //  final TextView options = (TextView)view.findViewById(R.id.options);
+
         final Spinner options = (Spinner) view.findViewById(R.id.options);
-        options.setTag(position);
+      //  options.setTag(position);
+
 
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(
                 context, R.array.products_options_arrays, android.R.layout.simple_spinner_item);
@@ -94,9 +96,12 @@ public class DbCartAdapter extends CursorAdapter {
         increase.setTag(cursor.getPosition());
         final int _id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("_id")));
 
-
-        //options.setText(cursor.getString(cursor.getColumnIndex("options")));
-        String[] array = {"배추 10개", "딸기 1박스", "피망 10개", "당근 10개"};
+        /**
+         * spinner 받아온 값으로 위치 지정
+         * */
+        Resources res = context.getResources();
+        //values에 있는 array option을 가져와 String 배열에 넣음.
+        String[] array = res.getStringArray(R.array.products_options_arrays);
 
         int cursor2_position = 0;
         for (int i = 0; i < array.length; i++) {
@@ -106,6 +111,10 @@ public class DbCartAdapter extends CursorAdapter {
             }
         }
         options.setSelection(cursor2_position);
+
+
+        //spinner 값 변경시 업데이트 하는 함수
+        //options.setOnItemSelectedListener();
 
 
 //        options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

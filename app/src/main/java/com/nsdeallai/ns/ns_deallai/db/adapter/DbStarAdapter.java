@@ -130,7 +130,7 @@ public class DbStarAdapter extends ArrayAdapter<PR_REVIEW> {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 socket.connect();
-                socket.emit("delete", o_id);
+                socket.emit("starDelete", o_id);
                 Log.d("DELETE", "DELETE 완료");
 
                 pr_arraylist.remove(pr_arraylist.get(position));
